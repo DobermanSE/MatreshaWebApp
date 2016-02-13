@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.store',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'MatreshaWebApp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'doberman3699550',
+        'USER': 'doberman3699550',
+        'PASSWORD': 'TPoEJ9KDRK',
+        'HOST': 'SSQL-12R2WEB02.client.parking.ru',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 
