@@ -9,6 +9,12 @@ class Category(models.Model):
     name = models.CharField("Наименование категории", max_length=50, null=False, help_text="Наименование категории")
     parentCategory = models.ManyToManyField("self")
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Categories"
+
 
 # Производитель
 class Manufacturer(models.Model):
@@ -17,10 +23,19 @@ class Manufacturer(models.Model):
     phone = models.CharField("Телефон", max_length=15, help_text="Телефон")
     email = models.EmailField()
 
+    def __str__(self):
+        return self.name
+
 
 # Статус товара
 class ProductStatus(models.Model):
     name = models.CharField("Значение статуса", max_length=50, null=False, help_text="Значение статуса")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Product statuses"
 
 
 # Товар
@@ -36,11 +51,17 @@ class Product(models.Model):
     # mainImage = models.ForeignKey(File)
     seller = models.ForeignKey(User)
 
+    def __str__(self):
+        return self.name
+
 
 # Характеристики товара
 class ProductDetail(models.Model):
     name = models.CharField("Наименование характеристики", max_length=50, null=False, help_text="Наименование характеристики")
     category = models.ForeignKey(Category)
+
+    def __str__(self):
+        return self.name
 
 
 # Значение характеристики товара
@@ -49,10 +70,19 @@ class ProductDetailValue(models.Model):
     product = models.ForeignKey(Product)
     productDetail = models.ForeignKey(ProductDetail)
 
+    def __str__(self):
+        return self.stringValue
+
 
 # Статус заказа
 class OrderStatus(models.Model):
     name = models.CharField("Статус", max_length=50, null=False, help_text="Значение статуса")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Order statuses"
 
 
 # Заказ
