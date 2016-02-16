@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+          crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+          crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    {% load staticfiles %}
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="{% url 'index' %}">
+                        <img src="{% static 'matreshkalogo.jpg' %}" height="50" alt="Матрешка" class="img-rounded">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse pull-right" style="padding-right:0px;">
+                    <ul class="nav navbar-nav">
+                        <li><a href="">Защита покупателя</a></li>
+                        <li><a href="">Доставка</a></li>
+                        <li><a href="">Как оплатить товар</a></li>
+                        <li><a href="">Как сделать заказ</a></li>
+                    </ul>
+                    <!--@Html.Partial("_LoginPartial")-->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="content-strip content-strip-false">
+        <div class="container sub-nav-container">
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default">Акции</button>
+                        <button type="button" class="btn btn-default">Коллекции</button>
+                        <button type="button" class="btn btn-default">Бестселлеры</button>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <!--@using (Html.BeginForm("Search", "Picture", FormMethod.Post))-->
+                    <!--{-->
+                        <!--<div class="input-group pull-right">-->
+
+                            <!--@if (ViewBag.Criteria != null)-->
+                            <!--{-->
+                                <!--<input type="text" id="criteria" name="criteria" class="form-control" &lt;!&ndash;value="@ViewBag.Criteria"&ndash;&gt; />-->
+                            <!--}-->
+                            <!--else-->
+                            <!--{-->
+                                <!--<input type="text" id="criteria" name="criteria" class="form-control" />-->
+                            <!--}-->
+                            <!--<span class="input-group-btn">-->
+                                <!--<input type="submit" class="btn btn-default" value="Поиск" />-->
+                            <!--</span>-->
+                        <!--</div>-->
+                    <!--}-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container main-section">
+        <div id="main" class="mainbody">
+            <div class="col-md-3 sidelayoutsection" style="padding-left: 0;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Категории</div>
+                    <!-- List group -->
+                    <ul class="list-group">
+                        <li class="list-group-item">Верхняя одежда</li>
+                        <li class="list-group-item">Одежда</li>
+                        <li class="list-group-item">Обувь</li>
+                        <li class="list-group-item">Бельё</li>
+                        <li class="list-group-item">Детская одежда</li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-9">
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+    </section>
+
+    <!--<footer>
+            <div class="container">
+                <div class="row">
+                    Footer
+                </div>
+            </div>
+        </footer>-->
+</body>
+</html>
