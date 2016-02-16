@@ -35,8 +35,14 @@
                         <li><a href="">Доставка</a></li>
                         <li><a href="">Как оплатить товар</a></li>
                         <li><a href="">Как сделать заказ</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li><a href="">{{ request.user.username }}</a></li>
+                        <li><a href="/accounts/logout">Выход</a></li>
+                        {% else %}
+                        <li><a href="/accounts/login">Вход</a></li>
+                        <li><a href="/accounts/registration">Регистрация</a></li>
+                        {% endif %}
                     </ul>
-                    <!--@Html.Partial("_LoginPartial")-->
                 </div>
             </div>
         </nav>
