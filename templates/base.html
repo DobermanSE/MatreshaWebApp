@@ -88,17 +88,13 @@
                     <div class="panel-heading">Категории</div>
                     <!-- List group -->
                     <ul class="list-group">
-                        <li class="list-group-item">Верхняя одежда</li>
-                        <li class="list-group-item">Одежда</li>
-                        <li class="list-group-item">Обувь</li>
-                        <li class="list-group-item">Бельё</li>
-                        <li class="list-group-item">Детская одежда</li>
+                        {% block categories %}{% endblock %}
                     </ul>
                 </div>
 
             </div>
             <div class="col-md-9">
-                {% block content %}{% endblock content %}
+                {% block content %}{% endblock %}
             </div>
         </div>
     </section>

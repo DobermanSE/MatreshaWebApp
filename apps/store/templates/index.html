@@ -1,5 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Matreshka Express Main Page{% endblock title %}
+{% block title %}Matreshka Express Main Page{% endblock %}
 {% block content %}
 <h1>Index page</h1>
-{% endblock content %}
+{% endblock %}
+{% block categories %}
+{% load base_category %}
+{% category_list %}
+{% endblock %}
