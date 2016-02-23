@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Matreshka Express Main Page{% endblock title %}
+{% block content %}
+<title>Регистрация</title>
+
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <p> {{ errors }} </p>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+<form class="form-signup" action="/accounts/registration/" method="post">{% csrf_token %}
+    <h2>Новый пользователь</h2>
+    <div class="fieldWrapper">
+        <label>Имя</label><br>
+        {{ form.firstname }}
+    </div>
+    <br>
+    <div class="fieldWrapper">
+        <label>Фамилия</label><br>
+        {{ form.lastname }}
+    </div>
+    <br>
+    <div class="fieldWrapper">
+        {{ form.email.errors }}
+        <label>E-mail</label><br>
+        {{ form.email }}
+    </div>
+    <br>
+    <div class="fieldWrapper">
+    {{form.errors.values.0}}
+        <label>Имя пользователя</label><br>
+        {{ form.username }}
+    </div>
+    <br>
+    <div class="fieldWrapper">
+        {{form.errors.values.1}}
+        <label>Пароль</label><br>
+        {{ form.password1 }}
+    </div>
+    <br>
+    <div class="fieldWrapper">
+        <label>Подтвердите пароль</label><br>
+        {{ form.password2 }}
+    </div>
+    <br></br>
+    <input type="submit" name="submit" class="btn btn-primary" value="Создать">
+</form>
+
+{% endblock %}
