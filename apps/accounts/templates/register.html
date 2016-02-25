@@ -13,9 +13,8 @@
     {% endfor %}
 {% endif %}
 
-<form class="form-signup" action="/accounts/registration/" method="post">{% csrf_token %}
-
-    {%if seller%}
+{%if seller%}
+<form class="form-signup" action="/accounts/seller_registration/" method="post">{% csrf_token %}
     <h2>Новый продавец</h2>
     <div class="fieldWrapper">
         <label>Компания</label><br>
@@ -23,6 +22,7 @@
     </div>
     <br>
     {%else%}
+    <form class="form-signup" action="/accounts/registration/" method="post">{% csrf_token %}
     <h2>Новый пользователь</h2>
     {%endif%}
 
