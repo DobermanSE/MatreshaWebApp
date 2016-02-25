@@ -1,3 +1,5 @@
 {% for category in categories %}
-    <li class="list-group-item"> {{ category }} </li>
+    <li class="list-group-item">
+        <a href="{% url 'products_by_category' category.id %}">{{ category.name }}</a>
+    </li>
 {% endfor %}

@@ -1,10 +1,20 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from apps.store.models import Product, Category
 
 
 def index(request):
-    return render(request, "index.html")
+    context = {'products': Product.objects.all()[:5]}
+    return render(request, "index.html", context)
 
 
-class CategoryView(TemplateView):
-    template_name = "base_category.html"
+def product(request, product_id):
+    context = {"product":  Product.objects.get(pk=product_id)}
+    return render(request, "product.html", context)
+
+
+def products_by_category(request, category_id):
+    context = {
+        "products":  Product.objects.filter(category=category_id),
+        "category": Category.objects.get(pk=category_id)
+    }
+    return render(request, "products.html", context)

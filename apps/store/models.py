@@ -4,10 +4,24 @@ from django.contrib.auth.models import User
 # from django.core.validators import MinValueValidator, MaxValueValidator
 
 
+# Статус товара
+PRODUCT_STATUSES = (
+    (1, "Модерация"),
+    (2, "Активный")
+)
+
+
+# Статус заказа
+ORDER_STATUSES = (
+    (1, "В обработке"),
+    (2, "Активный")
+)
+
+
 # Категория
 class Category(models.Model):
     name = models.CharField("Наименование категории", max_length=50, null=False, help_text="Наименование категории")
-    parentCategory = models.ManyToManyField("self")
+    parentCategory = models.ForeignKey("self", null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -19,23 +33,12 @@ class Category(models.Model):
 # Производитель
 class Manufacturer(models.Model):
     name = models.CharField("Наименование производителя", max_length=100, null=False, help_text="Наименование производителя")
-    address = models.CharField("Адрес", max_length=300, help_text="Адрес")
-    phone = models.CharField("Телефон", max_length=15, help_text="Телефон")
-    email = models.EmailField()
+    address = models.CharField("Адрес", max_length=300, help_text="Адрес", null=True, blank=True)
+    phone = models.CharField("Телефон", max_length=15, help_text="Телефон", null=True, blank=True)
+    email = models.EmailField("Электронная почта", null=True, blank=True)
 
     def __str__(self):
         return self.name
-
-
-# Статус товара
-class ProductStatus(models.Model):
-    name = models.CharField("Значение статуса", max_length=50, null=False, help_text="Значение статуса")
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "Product statuses"
 
 
 # Товар
@@ -45,7 +48,7 @@ class Product(models.Model):
     createdOn = models.DateTimeField("Дата добавления", auto_now_add=True)
     category = models.ForeignKey(Category)
     manufacturer = models.ForeignKey(Manufacturer)
-    productStatus = models.ForeignKey(ProductStatus)
+    productStatus = models.IntegerField("Статус товара", choices=PRODUCT_STATUSES, default=1)
     # TODO: переделать на ImageField
     # https://docs.djangoproject.com/es/1.9/topics/files/
     # mainImage = models.ForeignKey(File)
@@ -74,21 +77,10 @@ class ProductDetailValue(models.Model):
         return self.stringValue
 
 
-# Статус заказа
-class OrderStatus(models.Model):
-    name = models.CharField("Статус", max_length=50, null=False, help_text="Значение статуса")
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "Order statuses"
-
-
 # Заказ
 class Order(models.Model):
     orderDate = models.DateTimeField("Дата заказа", auto_now_add=True, help_text="Дата заказа")
-    orderStatus = models.ForeignKey(OrderStatus)
+    orderStatus = models.IntegerField("Статус заказа", choices=ORDER_STATUSES, default=1)
     customer = models.ForeignKey(User, related_name="customer")
     seller = models.ForeignKey(User, related_name="seller")
 

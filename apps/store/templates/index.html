@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Matreshka Express Main Page{% endblock %}
 {% block content %}
-<h1>Index page</h1>
+    <h2>Товары</h2>
+
+    {% for product in products %}
+        <a href="{% url 'product' product.id %}">
+            <h3>{{ product.name }}</h3>
+        </a>
+    {% endfor %}
 {% endblock %}
 {% block categories %}
-{% load base_category %}
-{% category_list %}
+    {% load base_category %}
+    {% category_list %}
 {% endblock %}

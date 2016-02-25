@@ -1,9 +1,7 @@
 from django.contrib import admin
-from .models import Product, OrderStatus, ProductStatus, ProductDetail, ProductDetailValue, Category, Manufacturer, OrderPosition, Order
+from .models import Product, ProductDetail, ProductDetailValue, Category, Manufacturer, OrderPosition, Order
 
 admin.site.register(Product)
-admin.site.register(OrderStatus)
-admin.site.register(ProductStatus)
 admin.site.register(ProductDetail)
 admin.site.register(ProductDetailValue)
 admin.site.register(Category)
