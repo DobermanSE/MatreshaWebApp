@@ -15,5 +15,7 @@ urlpatterns = [
     url(r'^registration/$', register_user,
         name='registration'),
 
+    url(r'^seller_registration/$', register_user, {'seller': True}),
+
     url(r'^confirm/(?P<activation_key>\w+)/', register_confirm),
 ]

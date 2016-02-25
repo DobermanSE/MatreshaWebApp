@@ -3,6 +3,8 @@
 {% block content %}
 <title>Регистрация</title>
 
+{{form.errors}}
+
 {% if form.errors %}
     {% for field in form %}
         {% for error in field.errors %}
@@ -12,7 +14,18 @@
 {% endif %}
 
 <form class="form-signup" action="/accounts/registration/" method="post">{% csrf_token %}
+
+    {%if seller%}
+    <h2>Новый продавец</h2>
+    <div class="fieldWrapper">
+        <label>Компания</label><br>
+        {{ form.company_name }}
+    </div>
+    <br>
+    {%else%}
     <h2>Новый пользователь</h2>
+    {%endif%}
+
     <div class="fieldWrapper">
         <label>Имя</label><br>
         {{ form.firstname }}
@@ -24,19 +37,16 @@
     </div>
     <br>
     <div class="fieldWrapper">
-        {{ form.email.errors }}
         <label>E-mail</label><br>
         {{ form.email }}
     </div>
     <br>
     <div class="fieldWrapper">
-    {{form.errors.values.0}}
         <label>Имя пользователя</label><br>
         {{ form.username }}
     </div>
     <br>
     <div class="fieldWrapper">
-        {{form.errors.values.1}}
         <label>Пароль</label><br>
         {{ form.password1 }}
     </div>
@@ -45,7 +55,7 @@
         <label>Подтвердите пароль</label><br>
         {{ form.password2 }}
     </div>
-    <br></br>
+    <br>
     <input type="submit" name="submit" class="btn btn-primary" value="Создать">
 </form>
 
