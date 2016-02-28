@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -14,14 +14,24 @@ class RegistrationForm(UserCreationForm):
             return email
         raise forms.ValidationError('Пользователь с таким email уже существует')
 
-    def save(self, commit=True):
+    def save(self, seller, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
         user.email = self.cleaned_data["email"]
         user.firstname = self.cleaned_data["firstname"]
         user.lastname = self.cleaned_data["lastname"]
+
         if commit:
             user.is_active = False
             user.save()
+
+        if seller:
+            group_name = 'sellers'
+        else:
+            group_name = 'customers'
+
+        group = Group.objects.get(name=group_name)
+        group.user_set.add(user)
+
         return user
 
     class Meta:

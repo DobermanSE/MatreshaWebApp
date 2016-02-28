@@ -24,7 +24,7 @@ def register_user(request, seller=False):
 
         args['form'] = form
         if form.is_valid():
-            form.save()  # save user to database if form is valid
+            form.save(seller)  # save user to database if form is valid
 
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
