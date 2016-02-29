@@ -18,8 +18,8 @@ ORDER_STATUSES = (
 )
 
 
-# Категория
 class Category(models.Model):
+    """Категория"""
     name = models.CharField("Наименование категории", max_length=50, null=False, help_text="Наименование категории")
     parentCategory = models.ForeignKey("self", null=True, blank=True)
 
@@ -30,8 +30,8 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
-# Производитель
 class Manufacturer(models.Model):
+    """Производитель"""
     name = models.CharField("Наименование производителя", max_length=100, null=False, help_text="Наименование производителя")
     address = models.CharField("Адрес", max_length=300, help_text="Адрес", null=True, blank=True)
     phone = models.CharField("Телефон", max_length=15, help_text="Телефон", null=True, blank=True)
@@ -41,25 +41,22 @@ class Manufacturer(models.Model):
         return self.name
 
 
-# Товар
 class Product(models.Model):
+    """Товар"""
     name = models.CharField("Наименование товара", max_length=50, null=False, help_text="Наименование товара")
     description = models.CharField("Описание товара", max_length=50, null=False, help_text="Описание товара")
     createdOn = models.DateTimeField("Дата добавления", auto_now_add=True)
     category = models.ForeignKey(Category)
     manufacturer = models.ForeignKey(Manufacturer)
     productStatus = models.IntegerField("Статус товара", choices=PRODUCT_STATUSES, default=1)
-    # TODO: переделать на ImageField
-    # https://docs.djangoproject.com/es/1.9/topics/files/
-    # mainImage = models.ForeignKey(File)
     seller = models.ForeignKey(User)
 
     def __str__(self):
         return self.name
 
 
-# Характеристики товара
 class ProductDetail(models.Model):
+    """Характеристики товара"""
     name = models.CharField("Наименование характеристики", max_length=50, null=False, help_text="Наименование характеристики")
     category = models.ForeignKey(Category)
 
@@ -67,8 +64,8 @@ class ProductDetail(models.Model):
         return self.name
 
 
-# Значение характеристики товара
 class ProductDetailValue(models.Model):
+    """Значение характеристики товара"""
     stringValue = models.CharField("Строковое значение характеристики", max_length=250, help_text="Строковое значение характеристики")
     product = models.ForeignKey(Product)
     productDetail = models.ForeignKey(ProductDetail)
@@ -77,16 +74,16 @@ class ProductDetailValue(models.Model):
         return self.stringValue
 
 
-# Заказ
 class Order(models.Model):
+    """Заказ"""
     orderDate = models.DateTimeField("Дата заказа", auto_now_add=True, help_text="Дата заказа")
     orderStatus = models.IntegerField("Статус заказа", choices=ORDER_STATUSES, default=1)
     customer = models.ForeignKey(User, related_name="customer")
     seller = models.ForeignKey(User, related_name="seller")
 
 
-# Строка заказа
 class OrderPosition(models.Model):
+    """Строка заказа"""
     quantity = models.IntegerField("Количество", help_text="Количество")
     price = models.DecimalField("Стоимость", max_digits=10, decimal_places=2, help_text="Стоимость")
     product = models.ForeignKey(Product)
@@ -109,10 +106,9 @@ class OrderPosition(models.Model):
 #     product = models.ForeignKey(Product)
 #     createdBy = models.ForeignKey(User)
 
-# TODO: переделать на ImageField или FilelField
-# Файл
-# class File (models.Model):
-#     name = models.CharField("Наименование файла", max_length=100, null=True, help_text="Наименование файла")
-#     contentType = models.CharField(max_length=30, null=False)
-#     content = models.BinaryField()
-#     product = models.ForeignKey(Product)
+
+class ProductImage(models.Model):
+    image = models.ImageField("Наименование файла", upload_to='images/products/%Y/%m/%d/')
+    product = models.ForeignKey(Product)
+    isMain = models.BooleanField("Основное изображение?")
+

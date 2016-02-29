@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from apps.store.models import Product, Category
+from apps.store.models import Product, Category, ProductImage
 
 
 def index(request):
@@ -8,7 +8,10 @@ def index(request):
 
 
 def product(request, product_id):
-    context = {"product":  Product.objects.get(pk=product_id)}
+    context = {
+        "product":  Product.objects.get(pk=product_id),
+        "images": ProductImage.objects.filter(product=product_id)
+    }
     return render(request, "product.html", context)
 
 

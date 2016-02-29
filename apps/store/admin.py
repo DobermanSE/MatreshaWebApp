@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import Product, ProductDetail, ProductDetailValue, Category, Manufacturer, OrderPosition, Order
+from . import models
 
-admin.site.register(Product)
-admin.site.register(ProductDetail)
-admin.site.register(ProductDetailValue)
-admin.site.register(Category)
-admin.site.register(Manufacturer)
-admin.site.register(OrderPosition)
-admin.site.register(Order)
+admin.site.register(models.Product)
+admin.site.register(models.ProductDetail)
+admin.site.register(models.ProductDetailValue)
+admin.site.register(models.Category)
+admin.site.register(models.Manufacturer)
+admin.site.register(models.OrderPosition)
+admin.site.register(models.Order)
+admin.site.register(models.ProductImage)
