@@ -7,6 +7,8 @@ from django.template import RequestContext
 from django.core.mail import send_mail
 import hashlib, datetime, random
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import TemplateView
 
 
 def register_user(request, seller=False):
@@ -78,3 +80,16 @@ def register_confirm(request, activation_key):
     user.is_active = True
     user.save()
     return render_to_response('confirm.html')
+
+
+class ManageAccount(LoginRequiredMixin, TemplateView):
+    login_url = '/accounts/login/'
+    template_name = 'manage.html'
+
+    def get(self, *args, **kwargs):
+        if self.request.user.groups.filter(name='sellers').exists():
+            return render_to_response('manage_sellers.html', context_instance=RequestContext(self.request))
+        else:
+            return render_to_response('manage.html', context_instance=RequestContext(self.request))
+
+

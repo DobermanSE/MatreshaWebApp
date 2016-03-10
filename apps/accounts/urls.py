@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login,
         {'template_name': 'login.html'},
         name='login'),
+
     url(r'^logout/$', auth_views.logout,
         {'next_page': '/'},
         name='logout'),
@@ -35,4 +36,6 @@ urlpatterns = [
     url(r'^password/done/$',
         auth_views.password_reset_complete,
         {'template_name': 'password_reset_complete.html'}),
+
+    url(r'^manage/$', ManageAccount.as_view()),
 ]
