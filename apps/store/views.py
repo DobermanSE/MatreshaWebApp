@@ -10,7 +10,8 @@ def index(request):
 def product(request, product_id):
     context = {
         "product":  Product.objects.get(pk=product_id),
-        "images": ProductImage.objects.filter(product=product_id)
+        "images": ProductImage.objects.filter(product=product_id, isMain=False)[:5],
+        "main_image": ProductImage.objects.get(product=product_id, isMain=True),
     }
     return render(request, "product.html", context)
 
