@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django.core.mail import send_mail
 import hashlib, datetime, random
 from django.utils import timezone
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
 
