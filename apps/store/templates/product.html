@@ -3,9 +3,29 @@
     Matreshka Express {{ product.name }}
 {% endblock %}
 {% block content %}
-    <h3>{{ product.name }}</h3>
-
-    {% for image in images %}
-        <img src="{{ image.image.url }}" height="50" alt="{{ product.name }}" class="img-rounded">
-    {% endfor %}
+    <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ product.name }}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-12">
+        <div class="col-sm-5">
+            <div class="row">
+            <img src="{{ main_image.image.url }}" height="200" alt="{{ product.name }}" class="img-rounded">
+            </div>
+            <br>
+            <div class="row">
+            {% for image in images %}
+                <img src="{{ image.image.url }}" height="50" alt="{{ product.name }}" class="img-rounded">
+            {% endfor %}
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <b>Описание: </b> {{ product.description }}
+            <p><b>Производитель: </b> {{ product.manufacturer }}
+        </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
+
