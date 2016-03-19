@@ -4,6 +4,11 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="http://code.jquery.com/jquery-1.12.2.min.js"
+              integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk="
+              crossorigin="anonymous"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -18,6 +23,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             crossorigin="anonymous"></script>
+
+    <script>
+        {% block page_scripts %}{% endblock %}
+    </script>
 </head>
 <body>
     {% load staticfiles %}
@@ -59,23 +68,12 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <!--@using (Html.BeginForm("Search", "Picture", FormMethod.Post))-->
-                    <!--{-->
-                        <!--<div class="input-group pull-right">-->
-
-                            <!--@if (ViewBag.Criteria != null)-->
-                            <!--{-->
-                                <!--<input type="text" id="criteria" name="criteria" class="form-control" &lt;!&ndash;value="@ViewBag.Criteria"&ndash;&gt; />-->
-                            <!--}-->
-                            <!--else-->
-                            <!--{-->
-                                <!--<input type="text" id="criteria" name="criteria" class="form-control" />-->
-                            <!--}-->
-                            <!--<span class="input-group-btn">-->
-                                <!--<input type="submit" class="btn btn-default" value="Поиск" />-->
-                            <!--</span>-->
-                        <!--</div>-->
-                    <!--}-->
+                    <div class="input-group pull-right">
+                        <input type="text" id="criteria" name="criteria" class="form-control" />
+                        <span class="input-group-btn">
+                            <input type="submit" class="btn btn-default" value="Поиск" />
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,15 +81,8 @@
 
     <section class="container main-section">
         <div id="main" class="mainbody">
-            <div class="col-md-3 sidelayoutsection" style="padding-left: 0;">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Категории</div>
-                    <!-- List group -->
-                    <ul class="list-group">
-                        {% block categories %}{% endblock %}
-                    </ul>
-                </div>
-
+            <div class="col-md-3" style="padding-left: 0;">
+                {% block categories %}{% endblock %}
             </div>
             <div class="col-md-9">
                 {% block content %}{% endblock %}

@@ -1,5 +1,20 @@
-{% for category in categories %}
-    <li class="list-group-item">
-        <a href="{% url 'products_by_category' category.id %}">{{ category.name }}</a>
-    </li>
-{% endfor %}
+<nav class="bs-docs-sidebar col-sm-12">
+    <ul class="nav bs-docs-sidenav ">
+        {% for key, value in categories.items %}
+            <li>
+                <a data-toggle="collapse" href="#collapse_{{ key.id }}" aria-expanded="false" aria-controls="collapse_{{ key.id }}">
+                    {{ key.name }}
+                </a>
+                <ul class="nav collapse" id="collapse_{{ key.id }}">
+                    {% for category in value %}
+                        <li>
+                            <a href="{% url 'products_by_category' category.id %}" style="margin-left: 12px;">
+                                {{ category.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
