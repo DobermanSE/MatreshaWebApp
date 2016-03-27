@@ -11,7 +11,7 @@
     <div class="col-sm-12">
         <div class="col-sm-5">
             <div class="row">
-            <img src="{{ main_image.image.url }}" height="200" alt="{{ product.name }}" class="img-rounded">
+                <img src="{{ main_image.image.url }}" height="200" alt="{{ product.name }}" class="img-rounded">
             </div>
             <br>
             <div class="row">
@@ -23,6 +23,7 @@
         <div class="col-sm-7">
             <b>Описание: </b> {{ product.description }}
             <p><b>Производитель: </b> {{ product.manufacturer }}
+            <p><input type="submit" value="Добавить в корзину" />
         </div>
     </div>
   </div>
