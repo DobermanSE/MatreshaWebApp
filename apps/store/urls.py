@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^add_product/$', views.AddProduct.as_view(), name="add_product"),
     # ex: /store/get_subcategories
     url(r'^get_subcategories/$', views.get_subcategories, name="get_subcategories"),
+    # ex: /store/cart
+    url(r'^cart/$', views.cart, name="cart"),
 ]
 
 

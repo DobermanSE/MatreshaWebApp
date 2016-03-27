@@ -39,6 +39,14 @@ def get_subcategories(request):
         )
 
 
+def cart(request, product_id):
+    if 'cart' not in request.session:
+        request.session['cart'] = list()
+    request.session['cart'].append(int(product_id))
+    context = request.session['cart']
+    return render(request, "cart.html", context)
+
+
 class AddProduct(LoginRequiredMixin, TemplateView):
     login_url = '/accounts/login/'
     context = {
