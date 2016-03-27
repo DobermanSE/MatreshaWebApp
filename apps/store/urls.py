@@ -14,6 +14,12 @@ urlpatterns = [
     url(r'^get_subcategories/$', views.get_subcategories, name="get_subcategories"),
     # ex: /store/cart
     url(r'^cart/$', views.cart, name="cart"),
+    # ex: /store/add_to_cart/
+    # POST
+    url(r'^add_to_cart/$', views.add_to_cart, name="add_to_cart"),
+    # ex: /store/delete_from_cart/
+    # POST
+    url(r'^delete_from_cart/$', views.delete_from_cart, name="delete_from_cart"),
 ]
 
 

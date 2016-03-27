@@ -23,7 +23,12 @@
         <div class="col-sm-7">
             <b>Описание: </b> {{ product.description }}
             <p><b>Производитель: </b> {{ product.manufacturer }}
-            <p><input type="submit" value="Добавить в корзину" />
+            <p>
+            <form action="{% url 'add_to_cart' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" id="product_id" value="{{ product.id }}" />
+                <input type="submit" value="Добавить в корзину" />
+            </form>
         </div>
     </div>
   </div>
