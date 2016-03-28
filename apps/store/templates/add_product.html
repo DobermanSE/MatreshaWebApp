@@ -6,28 +6,44 @@
 {% block page_scripts %}
 
 $(document).ready(function() {
+
+    GetCategories();
+
     $('#parent_categories').change(function() {
-        alert("OK!");
+        GetCategories();
+    });
+
+    function GetCategories()
+    {
         $.ajax({
                 url : "/store/get_subcategories/", // the endpoint
-                type : "GET", // http method
+                type : "GET",
+                dataType: 'json',
+                contentType: "application/json",
                 data : {
                     category : $('#parent_categories').val()
                 }, // data sent with the post request
-
                 // handle a successful response
-                success : function(json) {
-                    var result = json;
-                    alert("Success!");
+                success : function(data, textStatus, jqXHR) {
+                    var result = JSON.parse(data);
+
+                    $('#categories').empty();
+
+                    $.each(result, function (i, item) {
+                        $('#categories').append($('<option>', {
+                            value: item.pk,
+                            text : item.fields.name
+                        }));
+                    });
                 },
 
                 // handle a non-successful response
                 error : function(xhr,errmsg,err) {
                     alert("error!");
                 }
-            });
+        });
+    }
 
-    });
 });
 
 {% endblock %}

@@ -59,6 +59,7 @@ class ProductDetail(models.Model):
     """Характеристики товара"""
     name = models.CharField("Наименование характеристики", max_length=50, null=False, help_text="Наименование характеристики")
     category = models.ForeignKey(Category)
+    is_main = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -67,11 +68,28 @@ class ProductDetail(models.Model):
 class ProductDetailValue(models.Model):
     """Значение характеристики товара"""
     stringValue = models.CharField("Строковое значение характеристики", max_length=250, help_text="Строковое значение характеристики")
-    product = models.ForeignKey(Product)
+    # product = models.ForeignKey(Product)
     productDetail = models.ForeignKey(ProductDetail)
 
     def __str__(self):
         return self.stringValue
+
+
+class ProductPosition(models.Model):
+    count = models.IntegerField("Количество товара", default=0, help_text="Количество товара")
+    product = models.ForeignKey(Product)
+
+    def __str__(self):
+        return '{0}_{1}_{2}'.format(self.id, self.product, str(self.count))
+
+
+class ValueProductPosition(models.Model):
+    product_detail_value = models.ForeignKey(ProductDetailValue)
+    product = models.ForeignKey(Product)
+    product_position = models.ForeignKey(ProductPosition, null=True, blank=True)
+
+    def __str__(self):
+        return '{0} - {1} - {2}'.format(self.product_detail_value, self.product, self.product_position)
 
 
 class Order(models.Model):

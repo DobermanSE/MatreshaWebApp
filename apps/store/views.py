@@ -32,11 +32,9 @@ def products_by_category(request, category_id):
 
 def get_subcategories(request):
     categories_query = Category.objects.filter(parentCategory__id=request.GET['category'][0])
-    response_data = serializers.serialize("json", categories_query)
+    response_data = serializers.serialize("json", categories_query, ensure_ascii=False)
     return HttpResponse(
-            json.dumps(response_data),
-            content_type="application/json"
-        )
+            json.dumps(response_data, ensure_ascii=False), content_type="application/json; encoding=utf-8")
 
 
 def cart(request, product_id):
