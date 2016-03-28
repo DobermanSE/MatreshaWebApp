@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from apps.store.models import Product, Category, ProductImage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
@@ -37,11 +37,40 @@ def get_subcategories(request):
             json.dumps(response_data, ensure_ascii=False), content_type="application/json; encoding=utf-8")
 
 
-def cart(request, product_id):
+def add_to_cart(request):
+    """ Добавление в корзину """
     if 'cart' not in request.session:
-        request.session['cart'] = list()
-    request.session['cart'].append(int(product_id))
-    context = request.session['cart']
+        request.session['cart'] = dict()
+
+    product_id = request.POST['product_id']
+
+    if product_id not in request.session['cart']:
+        request.session['cart'][product_id] = 1
+    else:
+        current_count = request.session['cart'][product_id]
+        request.session['cart'][product_id] = current_count + 1
+
+    request.session.modified = True
+    return redirect('cart')
+
+
+def delete_from_cart(request):
+    """ Удаление из корзины """
+    if 'cart' in request.session:
+        del request.session['cart'][request.POST['product_id']]
+    request.session.modified = True
+    return redirect('cart')
+
+
+def cart(request):
+    """ Корзина """
+    products = dict()
+    for key, value in request.session['cart'].items():
+        products[Product.objects.get(pk=key)] = value
+    context = {
+        "products": products,
+        "products_count": len(products)
+    }
     return render(request, "cart.html", context)
 
 
