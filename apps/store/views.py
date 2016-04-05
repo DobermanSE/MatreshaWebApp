@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from apps.store.models import Product, Category, ProductImage
+from apps.store.models import Product, Category, ProductImage, ProductDetail, ProductDetailValue
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from apps.store.forms import AddProductFrom
@@ -31,10 +31,37 @@ def products_by_category(request, category_id):
 
 
 def get_subcategories(request):
-    categories_query = Category.objects.filter(parentCategory__id=request.GET['category'][0])
+    """ Получить подкатегорию в зависимости от выбранной категории """
+    categories_query = Category.objects.filter(parentCategory__id=request.GET['category'])
     response_data = serializers.serialize("json", categories_query, ensure_ascii=False)
     return HttpResponse(
             json.dumps(response_data, ensure_ascii=False), content_type="application/json; encoding=utf-8")
+
+
+def get_product_details(request):
+    """ Получить основныее и дополнительные характеристики """
+    product_detail_query = ProductDetail.objects.filter(category__id=request.GET['category'])
+
+    if product_detail_query is None or product_detail_query.count() < 1:
+        return HttpResponse()
+
+    product_details = product_detail_query.values()
+
+    result = dict([('main', list()), ('sub', list())])
+
+    for detail in product_details:
+        product_detail_value_query = ProductDetailValue.objects.filter(productDetail__id=detail['id'])
+        if product_detail_value_query is None or product_detail_value_query.count() < 1:
+            continue
+        product_detail_values = list(product_detail_value_query.values())
+        if detail['is_main']:
+            result['main'].append(dict([(detail['name'], product_detail_values)]))
+        else:
+            result['sub'].append(dict([(detail['name'], product_detail_values)]))
+
+    json_response = json.dumps(result, ensure_ascii=False)
+
+    return HttpResponse(json_response, content_type="application/json; encoding=utf-8")
 
 
 def add_to_cart(request):

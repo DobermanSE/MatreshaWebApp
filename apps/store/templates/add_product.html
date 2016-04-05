@@ -13,6 +13,10 @@ $(document).ready(function() {
         GetCategories();
     });
 
+    $('#categories').change(function() {
+        GetDetails();
+    });
+
     function GetCategories()
     {
         $.ajax({
@@ -28,6 +32,52 @@ $(document).ready(function() {
                     var result = JSON.parse(data);
 
                     $('#categories').empty();
+
+                    $.each(result, function (i, item) {
+                        $('#categories').append($('<option>', {
+                            value: item.pk,
+                            text : item.fields.name
+                        }));
+                    });
+                },
+
+                // handle a non-successful response
+                error : function(xhr,errmsg,err) {
+                    alert("error!");
+                }
+        });
+    }
+
+    function GetDetails()
+    {
+        $.ajax({
+                url : "/store/get_product_details/", // the endpoint
+                type : "GET",
+                dataType: 'json',
+                contentType: "application/json",
+                data : {
+                    category : $('#categories').val()
+                }, // data sent with the post request
+                // handle a successful response
+                success : function(data, textStatus, jqXHR) {
+                    $('#MainDetails').empty();
+                    $('#SubDetails').empty();
+
+                    main_details = data['main'];
+                    sub_details = data['sub'];
+
+                    i=0;
+                    for(key in main_details)
+                    {
+                        for(name in main_details[key])
+                        {
+                            var detail_label = $('<p id="' + i + '"></p>').text(name);
+                            $( "#MainDetails" ).append(detail_label);
+                            i++;
+                        }
+                    }
+
+                    var result = JSON.parse(data);
 
                     $.each(result, function (i, item) {
                         $('#categories').append($('<option>', {
@@ -80,5 +130,13 @@ $(document).ready(function() {
     <label>Описание</label><br>
     {{ product_form.description }}
 </div>
+
+<div id="MainDetails" >
+
+</div>
+
+    <div id="SubDetails" >
+
+    </div>
 
 {% endblock %}
