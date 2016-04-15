@@ -66,25 +66,54 @@ $(document).ready(function() {
                     main_details = data['main'];
                     sub_details = data['sub'];
 
+                    var header = $('<h4>Основные характеристики товара</h4>');
+                    $( "#MainDetails" ).append(header);
                     i=0;
                     for(key in main_details)
                     {
                         for(name in main_details[key])
                         {
+
                             var detail_label = $('<p id="' + i + '"></p>').text(name);
-                            $( "#MainDetails" ).append(detail_label);
+
+                            var detail_select = $('<select id="select_' + i +'" /><br>');
+                            $.each(main_details[key][name], function (c, item) {
+                                $('<option>', {
+                                    value: item.id,
+                                    text : item.stringValue
+                                }).appendTo(detail_select);
+                            });
+
+                            $( "#MainDetails" ).append(detail_label).append(detail_select).append('<br>')   ;
                             i++;
                         }
                     }
 
-                    var result = JSON.parse(data);
+                    var header = $('<h4>Дополнительные характеристики товара</h4>');
+                    $( "#SubDetails" ).append(header);
+                    i=0;
+                    for(key in sub_details)
+                    {
+                        for(name in sub_details[key])
+                        {
 
-                    $.each(result, function (i, item) {
-                        $('#categories').append($('<option>', {
-                            value: item.pk,
-                            text : item.fields.name
-                        }));
-                    });
+                            var detail_label = $('<p id="sub_' + i + '"></p>').text(name);
+
+                            var detail_select = $('<select id="sub_select_' + i +'" />');
+                            $.each(sub_details[key][name], function (c, item) {
+                                $('<option>', {
+                                    value: item.id,
+                                    text : item.stringValue
+                                }).appendTo(detail_select);
+                            });
+
+                            $( "#SubDetails" ).append(detail_label).append(detail_select).append(count_input).append('<br>').append('<br>');
+                            i++;
+                        }
+                    }
+                    var count_label = $('<p id="count_' + i + '"></p>').text('Количество');
+                    var count_input = $('<input id="count_input_' + i + '" type="text"/>')
+                    $( "#SubDetails" ).append(count_label).append(count_input).append('<br>')
                 },
 
                 // handle a non-successful response
@@ -131,12 +160,17 @@ $(document).ready(function() {
     {{ product_form.description }}
 </div>
 
+<br>
+
 <div id="MainDetails" >
 
 </div>
 
-    <div id="SubDetails" >
+<br>
 
-    </div>
+<div id="SubDetails" >
 
+</div>
+<br>
+<br>
 {% endblock %}
