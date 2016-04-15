@@ -7,6 +7,7 @@
 
 $(document).ready(function() {
 
+    $('#add_position').hide();
     GetCategories();
 
     $('#parent_categories').change(function() {
@@ -15,6 +16,14 @@ $(document).ready(function() {
 
     $('#categories').change(function() {
         GetDetails();
+    });
+
+    $('#add_position').click(function() {
+        AddNewPosition();
+    });
+
+    $('.rmv_position').click(function(event) {
+        RemovePosition(event.target);
     });
 
     function GetCategories()
@@ -90,30 +99,45 @@ $(document).ready(function() {
                     }
 
                     var header = $('<h4>Дополнительные характеристики товара</h4>');
-                    $( "#SubDetails" ).append(header);
+
+                    $( "#SubDetails" ).append(header).append('<table id="sub_details_table"/>');
+                    $( "#sub_details_table" ).append('<tr id="header"/>');
+                    $( "#sub_details_table" ).append('<tr id="position1"/>');
+
                     i=0;
                     for(key in sub_details)
                     {
                         for(name in sub_details[key])
                         {
 
-                            var detail_label = $('<p id="sub_' + i + '"></p>').text(name);
+                            var detail_label = $('<td><p id="sub_label_' + i + '_p_1"></p></td>').text(name);
 
-                            var detail_select = $('<select id="sub_select_' + i +'" />');
+                            var select_cell = $('<td></td>')
+                            var detail_select = $('<select id="sub_select_' + i +'_p_1" />');
                             $.each(sub_details[key][name], function (c, item) {
                                 $('<option>', {
                                     value: item.id,
                                     text : item.stringValue
                                 }).appendTo(detail_select);
                             });
+                            select_cell.append(detail_select);
 
-                            $( "#SubDetails" ).append(detail_label).append(detail_select).append(count_input).append('<br>').append('<br>');
+                            $( "#header" ).append(detail_label);
+                            $( "#position1" ).append(select_cell);
                             i++;
                         }
                     }
-                    var count_label = $('<p id="count_' + i + '"></p>').text('Количество');
-                    var count_input = $('<input id="count_input_' + i + '" type="text"/>')
-                    $( "#SubDetails" ).append(count_label).append(count_input).append('<br>')
+                    var count_label = $('<td><p id="count_label_p_1"></p></td>').text('Количество');
+                    var count_input = $('<td><input id="count_input_p_1" type="text"/></td>');
+                    var remove_btn = $('<td><input id="rmv_btn_p_1" class="rmv_position" type="button" value="Удалить"/></td>')
+
+                    $( "#header" ).append(count_label);
+                    $( "#position1" ).append(count_input).append(remove_btn);
+
+                    $('#count_fieldWrapper').hide();
+                    $('#add_position').show();
+                    $('.rmv_position').hide();
+
                 },
 
                 // handle a non-successful response
@@ -121,6 +145,35 @@ $(document).ready(function() {
                     alert("error!");
                 }
         });
+    }
+
+    function AddNewPosition()
+    {
+        var position_tr = $('tr[id^="position"]:last');
+        var num = parseInt( position_tr.prop("id").match(/\d+/g), 10 ) +1;
+        var new_position = position_tr.clone().prop('id', 'position'+num );
+
+        new_position.find('td').children().each(function(i, item){
+            var ind = item.id.lastIndexOf('_');
+            var new_id = item.id.substring(0, ind + 1);
+            item.id = new_id + num;
+        });
+
+        $( "#sub_details_table" ).append(new_position);
+
+        $('.rmv_position').click(function(event) {
+            RemovePosition(event.target);
+        });
+
+        $('.rmv_position').show();
+    }
+
+    function RemovePosition(btn)
+    {
+        $('#'+btn.id).parent().parent().remove();
+        var position_tr = $('tr[id^="position"]');
+        if(position_tr.length < 2)
+            $('.rmv_position').hide();
     }
 
 });
@@ -159,6 +212,11 @@ $(document).ready(function() {
     <label>Описание</label><br>
     {{ product_form.description }}
 </div>
+<br>
+<div class="fieldWrapper" id="count_fieldWrapper">
+    <label>Количество</label><br>
+    {{ product_form.count }}
+</div>
 
 <br>
 
@@ -169,8 +227,10 @@ $(document).ready(function() {
 <br>
 
 <div id="SubDetails" >
-
 </div>
+<br>
+<br>
+<input type="button" value="Добавить позицию" id="add_position"/>
 <br>
 <br>
 {% endblock %}

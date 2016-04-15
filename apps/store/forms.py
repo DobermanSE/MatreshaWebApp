@@ -9,6 +9,7 @@ class AddProductFrom(ModelForm):
     category = forms.ModelChoiceField(queryset=categories_query, empty_label=None)
     name = forms.CharField(min_length=5, max_length=255, required=True)
     description = forms.CharField(required=False)
+    count = forms.IntegerField(required=False, min_value=1)
 
     class Meta:
         model = Product
