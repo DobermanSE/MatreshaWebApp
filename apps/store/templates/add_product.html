@@ -85,7 +85,7 @@ $(document).ready(function() {
 
                             var detail_label = $('<p id="' + i + '"></p>').text(name);
 
-                            var detail_select = $('<select id="select_' + i +'" /><br>');
+                            var detail_select = $('<select id="select_' + i +'" name="select_' + i +'" /><br>');
                             $.each(main_details[key][name], function (c, item) {
                                 $('<option>', {
                                     value: item.id,
@@ -113,7 +113,7 @@ $(document).ready(function() {
                             var detail_label = $('<td><p id="sub_label_' + i + '_p_1"></p></td>').text(name);
 
                             var select_cell = $('<td></td>')
-                            var detail_select = $('<select id="sub_select_' + i +'_p_1" />');
+                            var detail_select = $('<select id="sub_select_' + i +'_p_1" name="sub_select_' + i +'_p_1"/>');
                             $.each(sub_details[key][name], function (c, item) {
                                 $('<option>', {
                                     value: item.id,
@@ -128,7 +128,7 @@ $(document).ready(function() {
                         }
                     }
                     var count_label = $('<td><p id="count_label_p_1"></p></td>').text('Количество');
-                    var count_input = $('<td><input id="count_input_p_1" type="text"/></td>');
+                    var count_input = $('<td><input id="count_input_p_1" type="text" name="count_input_p_1"/></td>');
                     var remove_btn = $('<td><input id="rmv_btn_p_1" class="rmv_position" type="button" value="Удалить"/></td>')
 
                     $( "#header" ).append(count_label);
@@ -157,6 +157,7 @@ $(document).ready(function() {
             var ind = item.id.lastIndexOf('_');
             var new_id = item.id.substring(0, ind + 1);
             item.id = new_id + num;
+            item.name = item.id;
         });
 
         $( "#sub_details_table" ).append(new_position);
@@ -193,6 +194,7 @@ $(document).ready(function() {
     {% endfor %}
 {% endif %}
 <br>
+    <form method="post" action="{% url 'add_product'%}">{% csrf_token %}
 <div class="fieldWrapper">
     <label>Родительская категория</label><br>
     {{ product_form.parent_category }}
@@ -233,4 +235,6 @@ $(document).ready(function() {
 <input type="button" value="Добавить позицию" id="add_position"/>
 <br>
 <br>
+<input type="submit" value="Сохранить" />
+</form>
 {% endblock %}

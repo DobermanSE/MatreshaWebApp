@@ -3,7 +3,7 @@ from apps.store.models import Product, Category, ProductImage, ProductDetail, Pr
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from apps.store.forms import AddProductFrom
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 import json
 
@@ -106,6 +106,8 @@ class AddProduct(LoginRequiredMixin, TemplateView):
     context = {
         "product_form": AddProductFrom()
     }
+    form_class = AddProductFrom
+    template_name = "add_product.html"
 
     def get(self, *args, **kwargs):
         if self.request.user.groups.filter(name='sellers').exists():
@@ -113,3 +115,25 @@ class AddProduct(LoginRequiredMixin, TemplateView):
         else:
             return render(self.request, 'login.html', self.context)
 
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            # <process form cleaned data>
+            product_positions = dict()
+
+            product_indexes = [p[p.rfind('_')+1:] for p in form.data.keys() if p.startswith('sub_select_')]
+            unique_product_indexes = set(product_indexes)
+            product_indexes_list = list(unique_product_indexes)
+
+            sub_details = [p for p in form.data.keys() if p.startswith('sub_select_') and p.endswith('_p_' + product_indexes_list[0])]
+            sub_details_count = len(sub_details)
+
+            for product_index in product_indexes_list:
+                product_positions[product_index] = dict()
+                for i in range(0, sub_details_count):
+                    product_positions[product_index][i] = form.data['sub_select_' + str(i) + '_p_' + product_index]
+                product_positions[product_index]['count'] = form.data['count_input_p_' + product_index]
+
+            return render(request, 'index.html')
+
+        return render(request, self.template_name, {'form': form})
