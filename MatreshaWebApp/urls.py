@@ -28,6 +28,6 @@ urlpatterns = [
     url(r'^accounts/', include('apps.accounts.urls')),
 ]
 
-
-urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns()

@@ -1,12 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Matreshka Express Main Page{% endblock %}
 {% block content %}
-    <h2>Товары</h2>
-
+    {% load staticfiles %}
+    <h2 class="title">Новые поступления</h2>
     {% for product in products %}
-        <a href="{% url 'product' product.id %}">
-            <h3>{{ product.name }}</h3>
-        </a>
+    <a href="{% url 'product' product.id %}">
+        <div class="product-card">
+            <div class="product-card-image">
+                <img src="{% static 'store/test/test2.jpg' %}" />
+            </div>
+            <div class="product-card-description">
+                <a href="{% url 'product' product.id %}">{{ product.name }}</a>
+            </div>
+            <div class="product-card-price">
+                5000 руб.
+            </div>
+            <div class="product-card-buttons">
+                <input type="submit" value="Купить" class="red-button" />
+            </div>
+        </div>
+    </a>
     {% endfor %}
 {% endblock %}
 {% block categories %}

@@ -1,0 +1,15 @@
+﻿ul.menu {
+    padding:            10px;
+    margin:             0px;
+}
+
+ul.menu li {
+    /*display:            inline;*/
+}
+
+ul.menu li a {
+    padding:            5px 10px;
+    height:             100%;
+    text-decoration:    none;
+    min-height:         30px;
+}

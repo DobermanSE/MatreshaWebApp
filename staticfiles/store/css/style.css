@@ -1,0 +1,86 @@
+﻿body {
+    background-color:   rgb(255, 255, 255);
+    color:              rgb(89, 89, 91);
+    font-family:        "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding:            0px;
+    margin:             0px;
+}
+
+a:visited, a:link {
+    color:              rgb(89, 89, 91);
+    text-decoration:    none;
+}
+
+a:hover {
+    color: #e9222d;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+}
+
+*, *:after, *:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing:    border-box;
+	box-sizing:         border-box;
+}
+
+
+header {
+    background-color:   rgb(255, 255, 255);
+    width:              100%;
+    height:             80px;
+    max-width:          1200px;
+    margin:             0 auto 0 auto;
+}
+
+.container {
+    max-width:      1200px;
+    margin:         15px auto 0 auto;
+}
+
+.red-button {
+    background-color:   #e9222d;
+    color:              #fff;
+    padding:            10px 10px;
+    border:             0;
+    font-size:          15px;
+    text-transform:     uppercase;
+    outline:            none;
+}
+
+.title {
+    margin:         20px auto; 
+    width:          100%; 
+    text-align:     center; 
+    text-transform: uppercase; 
+}
+
+#orbit {
+    width:              100%;
+    height:             400px;
+    background-color:   beige;
+}
+
+footer {
+    width:              100%;
+    background-color:   lightgray;
+    min-height:         100px;
+    padding-top:        20px;
+    padding-bottom:     20px;
+}
+
+.vertical-line {
+    border-left: 1px dashed rgb(89, 89, 91);
+    float:right;
+    height: 60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    float: left;
+    background: url('../imgs/preview-free-pack.svg') no-repeat;
+}

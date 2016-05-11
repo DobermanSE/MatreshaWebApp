@@ -1,0 +1,79 @@
+﻿.navigation-bar {
+    background-color: #e9222d;
+}
+
+/*Search*/
+.navigation-bar #search {
+    float:  right;
+    width:  auto;
+}
+
+#search input[type=submit] {
+    background-image: url('../imgs/ic_search_white_24dp_2x.png') ;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    padding-left: 10px;
+}
+
+#search input[type=text] {
+    height:         24px;
+    margin-top:     8px;
+    border:         0;
+    width:          300px;
+    outline:        none;
+    padding-left:   4px;
+    padding-right:  4px;
+    font-size:      medium;
+    color:          rgb(89, 89, 91);
+}
+/*End: Search*/
+
+ul.navigation-menu {
+    padding:    0px;
+    margin:     0px;
+    height:     40px;
+    position:   relative;
+    display:    inline-block;
+}
+
+ul.navigation-menu li {
+    display:    inline-block;
+    height:     40px;
+}
+
+ul.navigation-menu li>a {
+    display:            inline-block;
+    background-color:   #e9222d;
+    color:              rgb(255, 255, 255);
+    height:             100%;
+    padding-left:       10px;
+    padding-right:      10px;
+    padding-top:        10px;
+    text-decoration:    none;
+    text-transform:     uppercase;
+    font-size:          17px;
+    font-weight:        500;
+}
+
+ul.navigation-menu li a:hover {
+    color:              #e9222d;
+    background-color:   #fff;
+}
+
+.submenu {
+    width:                  1200px;
+    height:                 250px;
+    margin:                 0px;
+    background-color:       #fff;
+    position:               absolute;
+    left:                   0;
+    padding:                15px;
+    display:                none;
+    -webkit-box-shadow:     0px 15px 16px 3px rgba(0,0,0,0.24);
+    -moz-box-shadow:        0px 15px 16px 3px rgba(0,0,0,0.24);
+    box-shadow:             0px 15px 16px 3px rgba(0,0,0,0.24);
+}
+
+ul.navigation-menu > li:hover > .submenu {
+    display:    block;
+}
