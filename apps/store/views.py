@@ -91,6 +91,8 @@ def delete_from_cart(request):
 
 def cart(request):
     """ Корзина """
+    if 'cart' not in request.session:
+        request.session['cart'] = dict()
     products = dict()
     for key, value in request.session['cart'].items():
         products[Product.objects.get(pk=key)] = value

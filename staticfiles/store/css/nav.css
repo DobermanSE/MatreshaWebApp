@@ -36,12 +36,12 @@ ul.navigation-menu {
     display:    inline-block;
 }
 
-ul.navigation-menu li {
+ul.navigation-menu > li {
     display:    inline-block;
     height:     40px;
 }
 
-ul.navigation-menu li>a {
+ul.navigation-menu > li > a {
     display:            inline-block;
     background-color:   #e9222d;
     color:              rgb(255, 255, 255);

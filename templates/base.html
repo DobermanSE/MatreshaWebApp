@@ -11,6 +11,7 @@
     <link href="{% static 'store/css/nav.css' %}" rel="stylesheet" />
     <link href="{% static 'store/css/menu.css' %}" rel="stylesheet" />
     <link href="{% static 'store/css/product-card.css' %}" rel="stylesheet" />
+    <link href="{% static 'store/css/table.css' %}" rel="stylesheet" />
 
     <script src="http://code.jquery.com/jquery-1.12.2.min.js"
               integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk="
@@ -21,13 +22,24 @@
 </head>
 <body>
     <!--Header-->
-    <header>
+    <header class="aligner">
         <!--Logo-->
-        <a href="{% url 'index' %}">
-            <img src="{% static 'store/imgs/logo.png' %}" style="height:100%; float:left;" />
-        </a>
+        <div>
+            <a href="{% url 'index' %}">
+                <img src="{% static 'store/imgs/logo.png' %}" style="height:80px;" />
+            </a>
+        </div>
+        <div style="flex:1;">
+            <!---->
+        </div>
+        <div class="vertical-line"></div>
+        <!--Cart-->
+        <div style="margin-left: 15px; margin-right: 15px;">
+            <a href="{% url 'cart' %}">Ваша корзина пуста</a>
+        </div>
+        <div class="vertical-line"></div>
         <!--User-->
-        <div style="float:right; height: 100%;padding: 20px;">
+        <div style="margin-left: 15px; margin-right: 15px;">
             {% if request.user.is_authenticated %}
                 <a style="display: block; padding-bottom: 5px;" href="/accounts/manage">{{ request.user.username }}</a>
                 <a style="display: block;" href="/accounts/logout">Выход</a>
@@ -36,16 +48,10 @@
                 <a style="display: block;" href="/accounts/registration">Регистрация</a>
             {% endif %}
         </div>
-        <div class="vertical-line"></div>
-        <!--Cart-->
-        <div style="float:right; height: 100%; padding: 20px;">
-            <a href="{% url 'cart' %}">Ваша корзина пуста</a>
-        </div>
-        <div class="vertical-line"></div>
     </header>
     <!--Nav bar-->
     <div class="navigation-bar">
-        <div class="container">
+        <div class="container" style="margin-top: 0px;">
             <!--Categories-->
             {% block categories %}{% endblock %}
             <div id="search">
@@ -54,12 +60,8 @@
             </div>
         </div>
     </div>
-    <!--Orbit-->
-    <div id="orbit" class="container">
-        <img src="{% static 'store/test/test1.jpg' %}" style="width:100%;"/>
-    </div>
     <!--Main content-->
-    <div class="container" style="height: 1000px;">
+    <div class="container main">
         {% block content %}{% endblock %}
     </div>
    <!--Footer-->

@@ -3,59 +3,47 @@
     Matreshka Express: Корзина
 {% endblock %}
 {% block content %}
-<div class="panel panel-default">
-  <div class="panel-heading">Корзина</div>
-     {% if products_count < 1 %}
-     <div class="panel-body">
-        <h4>Корзина пуста. <a href="{% url 'index' %}">Перейти на главную</a></h4>
-     </div>
+<div>
+    <h2>Корзина</h2>
+    {% if products_count < 1 %}
+            Корзина пуста.<br /><b><a href="{% url 'index' %}">Перейти на главную</a></b>
     {% else %}
     <table class="table">
-     <thead>
-         <tr>
-             <th>
-                 #
-             </th>
-             <th>
-                 Наименование товара
-             </th>
-             <th>
-                 Количество
-             </th>
-             <th>
-                 Стоимость
-             </th>
-             <th>
-                 Удалить
-             </th>
-         </tr>
-     </thead>
-     <tbody>
-        {% for product, count in products.items %}
-        <tr>
-            <td scope="row">
-                1
-            </td>
-            <td>
-                <a href="{% url 'product' product.id %}">{{ product.name }}</a>
-            </td>
-            <td>
-                {{ count }}
-            </td>
-            <td>
-                N/A
-            </td>
-            <td>
-                <form action="{% url 'delete_from_cart' %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="product_id" id="product_id" value="{{ product.id }}" />
-                    <input type="submit" value="Удалить" />
-                </form>
-            </td>
-        </tr>
-          {% endfor %}
-      </tbody>
-  </table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Наименование товара</th>
+                <th>Количество</th>
+                <th>Стоимость</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product, count in products.items %}
+                <tr>
+                    <td scope="row">
+                        1
+                    </td>
+                    <td>
+                        <a href="{% url 'product' product.id %}">{{ product.name }}</a>
+                    </td>
+                    <td>
+                        {{ count }}
+                    </td>
+                    <td>
+                        N/A
+                    </td>
+                    <td>
+                        <form action="{% url 'delete_from_cart' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" id="product_id" value="{{ product.id }}" />
+                            <input type="submit" value="Удалить" style="padding: 5px;" />
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% endif %}
 </div>
 {% endblock %}

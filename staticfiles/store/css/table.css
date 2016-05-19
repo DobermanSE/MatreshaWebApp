@@ -1,0 +1,15 @@
+table {
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f5f2f0;
+}
+
+tr {
+    border-bottom: solid 1px #f5f2f0;
+}
+
+th, td {
+    padding: 8px;
+}
