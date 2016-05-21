@@ -1,0 +1,5 @@
+{% if goods_in_cart > 0 %}
+    <a id="cart" href="{% url 'cart' %}">Товаров в корзине: {{ goods_in_cart }}</a>
+{% else %}
+    <a id="cart" href="{% url 'cart' %}">Ваша корзина пуста</a>
+{% endif %}

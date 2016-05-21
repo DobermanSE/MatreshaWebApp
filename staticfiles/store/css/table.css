@@ -1,5 +1,6 @@
 table {
     border-collapse: collapse;
+    border: solid 1px #f5f2f0;
 }
 
 thead {

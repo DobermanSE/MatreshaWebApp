@@ -1,0 +1,40 @@
+/* Base button style */
+input[type="submit"] {
+    cursor: pointer;
+    padding:            10px 10px;
+    border:             0;
+    font-size:          15px;
+    text-transform:     uppercase;
+    outline:            none;
+}
+
+.red-button {
+    background-color:   #e9222d;
+    color:              #fff;
+
+}
+
+/* Base textbox style */
+input[type="text"], input[type="password"] {
+    font-size:      18px;
+    appearance:     none;
+    box-shadow:     none;
+    border-radius:  none;
+}
+
+/*The Thick Border textbox style*/
+input[type="text"], input[type="password"] {
+    padding:    4px;
+    border:     solid 2px #c9c9c9;
+    transition: border 0.3s;
+}
+
+/* Base focused textbox style */
+input[type="text"]:focus, input[type="password"]:focus {
+    outline: none;
+}
+
+/* The Thick Border focused textbox style */
+input[type="text"]:focus, input[type="password"]:focus {
+    border: solid 2px #969696;
+}

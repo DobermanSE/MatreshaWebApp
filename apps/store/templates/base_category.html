@@ -6,13 +6,13 @@
                 {{ key.name }}
             </a>
             <!--Sub Category-->
-            {% for category in value %}
-                <div class="submenu">
+            <div class="submenu">
+                {% for category in value %}
                     <a href="{% url 'products_by_category' category.id %}">
                         {{ category.name }}
                     </a>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </li>
     {% endfor %}
 </ul>

@@ -1,31 +1,35 @@
-﻿*, *:after, *:before {
+﻿/*
+    Base colors:
+    #fff - white
+    #f5f2f0 - lightgray (table)
+    #c9c9c9 - middlegray (input)
+    #969696 - one more gray (input, darker)
+    #59595b - darkgray
+    #e9222d - red
+*/
+
+*, *:after, *:before {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing:    border-box;
 	box-sizing:         border-box;
 }
 
 body {
-    background-color:   rgb(255, 255, 255);
-    color:              rgb(89, 89, 91);
+    background-color:   #fff;
+    color:              #59595b;
     font-family:        "Helvetica Neue",Helvetica,Arial,sans-serif;
     padding:            0px;
     margin:             0px;
     height:             100vh;
     display:            flex;
     flex-direction:     column;
+    min-width:          300px;
 }
 
-header {
-    background-color:   rgb(255, 255, 255);
-    width:              100%;
-    height:             80px;
-    max-width:          1200px;
-    margin:             0 auto 0 auto;
-}
 
 footer {
     width:              100%;
-    background-color:   lightgray;
+    background-color:   #c9c9c9;
     min-height:         100px;
     padding-top:        20px;
     padding-bottom:     20px;
@@ -38,7 +42,9 @@ footer {
 }
 
 .main {
-    flex:   1;
+    flex:           1;
+    padding-left:   15px;
+    padding-bottom: 15px;
 }
 
 a:visited, a:link {
@@ -58,47 +64,6 @@ h2 {
     font-weight: 300;
 }
 
-/* Base button style */
-input[type="submit"] {
-    cursor: pointer;
-    padding:            10px 10px;
-    border:             0;
-    font-size:          15px;
-    text-transform:     uppercase;
-    outline:            none;
-}
-
-.red-button {
-    background-color:   #e9222d;
-    color:              #fff;
-
-}
-
-/* Base textbox style */
-input[type="text"], input[type="password"] {
-    font-size: 18px;
-    appearance: none;
-    box-shadow: none;
-    border-radius: none;
-}
-
-/*The Thick Border textbox style*/
-input[type="text"], input[type="password"] {
-    padding: 4px;
-    border: solid 2px #c9c9c9;
-    transition: border 0.3s;
-}
-
-/* Base focused textbox style */
-input[type="text"]:focus, input[type="password"]:focus {
-    outline: none;
-}
-
-/* The Thick Border focused textbox style */
-input[type="text"]:focus, input[type="password"]:focus {
-    border: solid 2px #969696;
-}
-
 .title {
     margin:         20px auto; 
     width:          100%; 
@@ -109,26 +74,17 @@ input[type="text"]:focus, input[type="password"]:focus {
 #orbit {
     width:              100%;
     height:             400px;
-    background-color:   beige;
+    /*background-color:   beige;*/
 }
 
-.vertical-line {
-    border-left: 1px dashed rgb(89, 89, 91);
-    float:right;
-    height: 60px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.icon {
-    width: 16px;
-    height: 16px;
-    float: left;
-    background: url('../imgs/preview-free-pack.svg') no-repeat;
-}
-
-.aligner {
+/*.aligner {
     display:            flex;
     align-items:        center;
     justify-content:    center;
+}*/
+
+@media screen and (min-width: 1215px)  {
+    .main {
+        padding-left:   0px;
+    }
 }
