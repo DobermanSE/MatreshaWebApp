@@ -1,0 +1,41 @@
+.images-container {
+    padding-right:  20px;
+}
+
+.column {
+    width:  100%;
+    float:  left;
+}
+
+.big-image {
+    width:          100%;
+    margin-bottom:  15px;
+    border:         solid 2px #f5f2f0;
+}
+
+.small-image {
+    width:          150px;
+    padding-right:  10px;
+    border:         solid 2px #f5f2f0;
+}
+
+.info-title, .info-title-right {
+    text-transform:     uppercase;
+    display:            block;
+    font-weight:        600;
+}
+
+.info-title-right {
+    text-align:     left;
+}
+
+@media screen and (min-width: 1215px)  {
+    .info-title-right {
+        text-align:     right;
+        display:        block;
+    }
+
+    .column {
+        width:  50%;
+    }
+}

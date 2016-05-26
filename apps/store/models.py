@@ -49,6 +49,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category)
     manufacturer = models.ForeignKey(Manufacturer)
     productStatus = models.IntegerField("Статус товара", choices=PRODUCT_STATUSES, default=1)
+    price = models.DecimalField("Стоимость", max_digits=10, decimal_places=2, help_text="Стоимость")
     seller = models.ForeignKey(User)
 
     def __str__(self):
