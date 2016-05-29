@@ -10,10 +10,11 @@ class AddProductFrom(ModelForm):
     name = forms.CharField(min_length=5, max_length=255, required=True)
     description = forms.CharField(required=False)
     count = forms.IntegerField(required=False, min_value=1)
+    price = forms.DecimalField(required=True, min_value=1)
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'category']
+        fields = ['name', 'description', 'category', 'price']
 
     def __init__(self, *args, **kwargs):
         super(AddProductFrom, self).__init__(*args, **kwargs)

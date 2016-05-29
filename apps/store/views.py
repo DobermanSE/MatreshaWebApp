@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from apps.store.models import Product, Category, ProductImage, ProductDetail, ProductDetailValue
+from apps.store.models import Product, Category, ProductImage, ProductDetail, ProductDetailValue, Manufacturer, ProductPosition, ValueProductPosition
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from apps.store.forms import AddProductFrom
@@ -135,6 +135,30 @@ class AddProduct(LoginRequiredMixin, TemplateView):
                 for i in range(0, sub_details_count):
                     product_positions[product_index][i] = form.data['sub_select_' + str(i) + '_p_' + product_index]
                 product_positions[product_index]['count'] = form.data['count_input_p_' + product_index]
+
+            new_product = Product(name=form.data['name'],
+                              description=form.data['description'],
+                              productStatus=1,
+                              price=form.data['price'],
+                              manufacturer=Manufacturer.objects.filter(id=1)[0],
+                              category=Category.objects.filter(id=form.data['category'])[0],
+                              seller=request.user)
+
+            new_product.save()
+
+            value_product_position = ValueProductPosition(product_detail_value=ProductDetailValue.objects.filter(id=form.data['select_0'])[0],
+                                                          product=new_product)
+            value_product_position.save()
+
+            for key in product_positions.keys():
+                product_position = ProductPosition(product=new_product, count=product_positions[key]['count'])
+                product_position.save()
+                for sub_key in product_positions[key].keys():
+                    if sub_key == 'count':
+                        continue
+                    value_product_position = ValueProductPosition(product_detail_value=ProductDetailValue.objects.filter(id=product_positions[key][sub_key])[0],
+                                                          product=new_product, product_position=product_position)
+                    value_product_position.save()
 
             return render(request, 'index.html')
 
