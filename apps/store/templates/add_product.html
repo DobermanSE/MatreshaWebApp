@@ -194,7 +194,7 @@ $(document).ready(function() {
     {% endfor %}
 {% endif %}
 <br>
-    <form method="post" action="{% url 'add_product'%}">{% csrf_token %}
+    <form method="post" action="{% url 'add_product'%}" enctype="multipart/form-data">{% csrf_token %}
 <div class="fieldWrapper">
     <label>Родительская категория</label><br>
     {{ product_form.parent_category }}
@@ -218,6 +218,26 @@ $(document).ready(function() {
 <div class="fieldWrapper">
     <label>Цена</label><br>
     {{ product_form.price }}
+</div>
+<br>
+<div class="fieldWrapper">
+    <label>Главное фото</label><br>
+    {{ product_form.main_image }}
+</div>
+<br>
+<div class="fieldWrapper">
+    <label>Фото 1</label><br>
+    {{ product_form.image1 }}
+</div>
+<br>
+<div class="fieldWrapper">
+    <label>Фото 2</label><br>
+    {{ product_form.image2 }}
+</div>
+<br>
+<div class="fieldWrapper">
+    <label>Фото 3</label><br>
+    {{ product_form.image3 }}
 </div>
 <br>
 <div class="fieldWrapper" id="count_fieldWrapper">

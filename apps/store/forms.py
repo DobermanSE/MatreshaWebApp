@@ -11,6 +11,10 @@ class AddProductFrom(ModelForm):
     description = forms.CharField(required=False)
     count = forms.IntegerField(required=False, min_value=1)
     price = forms.DecimalField(required=True, min_value=1)
+    main_image = forms.ImageField()
+    image1 = forms.ImageField()
+    image2 = forms.ImageField()
+    image3 = forms.ImageField()
 
     class Meta:
         model = Product

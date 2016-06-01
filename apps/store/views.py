@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from apps.store.forms import AddProductFrom
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
+
 import json
 
 
@@ -118,7 +119,8 @@ class AddProduct(LoginRequiredMixin, TemplateView):
             return render(self.request, 'login.html', self.context)
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
+
         if form.is_valid():
             # <process form cleaned data>
             product_positions = dict()
@@ -159,6 +161,10 @@ class AddProduct(LoginRequiredMixin, TemplateView):
                     value_product_position = ValueProductPosition(product_detail_value=ProductDetailValue.objects.filter(id=product_positions[key][sub_key])[0],
                                                           product=new_product, product_position=product_position)
                     value_product_position.save()
+
+            for file_key in request.FILES.keys():
+                main_image = ProductImage(image=request.FILES[file_key], isMain=file_key == 'main_image', product=new_product)
+                main_image.save()
 
             return render(request, 'index.html')
 
