@@ -11,7 +11,10 @@
                 <img src="{{ image.image.url }}" class="small-image" alt="{{ product.name }}">
             {% endfor %}
         </div>
+
         <div class="column">
+        <form action="{% url 'add_to_cart' %}" method="post">
+
             <div class="row" style="height:50px;">
                 <div class="column">
                     <span class="info-title">{{ product.name }}</span>
@@ -21,19 +24,42 @@
                     <span class="info-title-right">{{ product.price }} руб.</span>
                 </div>
             </div>
+
+            <div class="row">
+                <span class="info-title">Основные характеристики</span>
+                    {% for main_detail in main_details %}
+                        <b>{{main_detail.productDetail.name}}</b>: {{main_detail.stringValue}}
+                    {% endfor %}
+            </div>
+            <br>
+            <div class="row">
+                <span class="info-title">Дополнительные характеристики</span>
+                    {% for key, extra_detail_list in extra_details.items %}
+                        {{key}}:
+                        <select>
+                            {% for extra_detail in extra_detail_list %}
+                                <option value="{{extra_detail.id}}">{{extra_detail.stringValue}}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                    {% endfor %}
+                    <br>
+            </div>
+
             <div style="clear:both;"></div>
             <div class="row">
                 <span class="info-title">Описание</span>
                 {{ product.description }}
             </div>
             <!--<span class="info-title">Производитель</span>-->
-            <div class="row">
-                <form action="{% url 'add_to_cart' %}" method="post">
+            <!--<div class="row">-->
+
                     {% csrf_token %}
                     <input type="hidden" name="product_id" id="product_id" value="{{ product.id }}" />
                     <input type="submit" value="Добавить в корзину" class="red-button" />
-                </form>
-            </div>
+
+        </form>
+            <!--</div>-->
         </div>
     </div>
 {% endblock %}

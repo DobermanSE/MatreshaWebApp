@@ -15,10 +15,28 @@ def index(request):
 
 
 def product(request, product_id):
+
+    main_value_product_positions = ValueProductPosition.objects.filter(product__id=product_id, product_position__isnull=True)
+    extra_details = dict()
+
+    if main_value_product_positions is not None:
+        main_details = [p.product_detail_value for p in main_value_product_positions]
+
+    extra_value_product_positions = ValueProductPosition.objects.filter(product__id=product_id, product_position__isnull=False)
+
+    for extra_value_product_position in extra_value_product_positions:
+        if extra_value_product_position.product_detail_value.productDetail.name not in extra_details:
+            extra_details[extra_value_product_position.product_detail_value.productDetail.name] = list()
+            extra_details[extra_value_product_position.product_detail_value.productDetail.name].append(extra_value_product_position.product_detail_value)
+        else:
+            extra_details[extra_value_product_position.product_detail_value.productDetail.name].append(extra_value_product_position.product_detail_value)
+
     context = {
         "product":  Product.objects.get(pk=product_id),
         "images": ProductImage.objects.filter(product=product_id, isMain=False)[:5],
         "main_image": ProductImage.objects.get(product=product_id, isMain=True),
+        "main_details": main_details,
+        "extra_details": extra_details
     }
     return render(request, "product.html", context)
 
